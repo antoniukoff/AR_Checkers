@@ -34,7 +34,7 @@ public class W05_ImageTracking : MonoBehaviour
 
             if (trackedImage.name == "Logo_NHL")
             {
-                prefabToSpawn.gameObject.GetComponent<BoardScript>().SpawnTheBoard();
+                //prefabToSpawn.gameObject.GetComponent<BoardScript>().SpawnTheBoard();
             }
 
         }
