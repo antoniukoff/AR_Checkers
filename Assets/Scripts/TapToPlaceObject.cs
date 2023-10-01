@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
@@ -13,8 +13,10 @@ public class TapToPlaceObject : MonoBehaviour
     GameObject spawnedObject;
     ARRaycastManager arRaycastManager;
     Vector2 touchPosition;
-
+    private float initialDistance;
+    private Vector3 initialScale;
     static List<ARRaycastHit> hits = new List<ARRaycastHit>();
+    bool moveBoard = false;
 
     void Awake()
     {
@@ -42,6 +44,30 @@ public class TapToPlaceObject : MonoBehaviour
         if (!GetTouchPosition(out touchPosition))
             return;
 
+        // Two-finger scaling
+        if (spawnedObject && Input.touchCount == 2)
+        {
+            Touch touch1 = Input.GetTouch(0);
+            Touch touch2 = Input.GetTouch(1);
+
+            if (touch1.phase == TouchPhase.Began || touch2.phase == TouchPhase.Began)
+            {
+                initialDistance = Vector2.Distance(touch1.position, touch2.position);
+                initialScale = spawnedObject.transform.localScale;
+            }
+            else if (touch1.phase == TouchPhase.Moved || touch2.phase == TouchPhase.Moved)
+            {
+                float currentDistance = Vector2.Distance(touch1.position, touch2.position);
+                float scaleFactor = currentDistance / initialDistance;
+                spawnedObject.transform.localScale = initialScale * scaleFactor;
+            }
+            return;
+        }
+        // Three-finger movement
+        if (spawnedObject && Input.touchCount == 3)
+        {
+           moveBoard = !moveBoard;
+        }
         // Touch event occured
         //https://docs.unity3d.com/2019.2/Documentation/ScriptReference/Experimental.XR.TrackableType.html
         if (arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon))
@@ -50,14 +76,13 @@ public class TapToPlaceObject : MonoBehaviour
 
             if (spawnedObject == null)
             {
-                
-                spawnedObject = prefabToSpawn;
-                spawnedObject.gameObject.GetComponent<BoardScript>().SpawnTheBoard();
+                spawnedObject = Instantiate(prefabToSpawn, new Vector3(), Quaternion.identity);
+                spawnedObject = spawnedObject.GetComponent<BoardScript>().SpawnTheBoard();
                 spawnedObject.transform.position = hitPose.position;
                 spawnedObject.transform.rotation = hitPose.rotation;
             
             }
-            else
+            else if(moveBoard == true)
                 spawnedObject.transform.position = hitPose.position;
         }
     }
