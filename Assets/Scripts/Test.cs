@@ -10,6 +10,7 @@ public class Test : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+            //spawnedObject = Instantiate(prefabToSpawn, new Vector3(5.0f,0.0f,0.0f), Quaternion.identity);
         
     }
 
@@ -17,8 +18,8 @@ public class Test : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown("t")){
-            spawnedObject = Instantiate(prefabToSpawn, new Vector3(), Quaternion.identity);
-            spawnedObject = spawnedObject.GetComponent<BoardScript>().SpawnTheBoard();
+            //spawnedObject.transform.position = new Vector3(5f,0.0f,0.0f);
+            //spawnedObject = spawnedObject.GetComponent<BoardScript>().SpawnTheBoard();
         }  
         if(Input.GetKeyDown("a") && spawnedObject != null)
         spawnedObject.transform.position -= new Vector3(0.1f,0.0f,0.0f);

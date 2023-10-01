@@ -30,7 +30,7 @@ public class BoardScript : MonoBehaviour
     private void Start()
     {
         redTurn = true;
-        SpawnTheBoard();
+       // SpawnTheBoard();
         activePiece.x = -1;
         activePiece.y = -1;
         moves = new Vector2[2];
@@ -151,17 +151,17 @@ public class BoardScript : MonoBehaviour
 
         if (pieces[coordx, coordy].colour == "red")
         {
-            if (pieces[coordx + 1, coordy + 1] == null) moves[0] = new Vector2(1 + deltaX, 1 + deltaZ);
-            if (pieces[coordx + 2, coordy + 2] == null && pieces[coordx + 1, coordy + 1] != null) moves[0] = new Vector2(2 + deltaX, 2 + deltaZ);
-            if (pieces[coordx - 1, coordy + 1] == null) moves[1] = new Vector2(-1 + deltaX, 1 + deltaZ);
-            if (pieces[coordx - 2, coordy + 2] == null && pieces[coordx - 1, coordy + 1] != null) moves[1] = new Vector2(-2 + deltaX, 2 + deltaZ);
+           if (pieces[coordx + 1, coordy + 1] == null) moves[0] = new Vector2(1, 1);
+            if (pieces[coordx + 2, coordy + 2] == null && pieces[coordx + 1, coordy + 1] != null) moves[0] = new Vector2(2, 2);
+            if (pieces[coordx - 1, coordy + 1] == null) moves[1] = new Vector2(-1, 1);
+            if (pieces[coordx - 2, coordy + 2] == null && pieces[coordx - 1, coordy + 1] != null) moves[1] = new Vector2(-2, 2);
         }
         if (pieces[coordx, coordy].colour == "black")
         {
-            if (pieces[coordx + 1, coordy - 1] == null) moves[0] = new Vector2(1 + deltaX, -1 + deltaZ);
-            if (pieces[coordx + 2, coordy - 2] == null && pieces[coordx + 1, coordy - 1] != null) moves[0] = new Vector2(2 + deltaX, -2 + deltaZ);
-            if (pieces[coordx - 1, coordy - 1] == null) moves[1] = new Vector2(-1 + deltaX, -1 + deltaZ);
-            if (pieces[coordx - 2, coordy - 2] == null && pieces[coordx - 1, coordy - 1] != null) moves[1] = new Vector2(-2 + deltaX, -2 + deltaZ);
+            if (pieces[coordx + 1, coordy - 1] == null) moves[0] = new Vector2(1, -1);
+            if (pieces[coordx + 2, coordy - 2] == null && pieces[coordx + 1, coordy - 1] != null) moves[0] = new Vector2(2, -2);
+            if (pieces[coordx - 1, coordy - 1] == null) moves[1] = new Vector2(-1, -1);
+            if (pieces[coordx - 2, coordy - 2] == null && pieces[coordx - 1, coordy - 1] != null) moves[1] = new Vector2(-2, -2);
         }
         return moves;
     }
@@ -174,20 +174,20 @@ public class BoardScript : MonoBehaviour
             piecesSpawned++;
             for (int j = 0; j < columns; j++)
             {
-                GameObject tile = Instantiate(tilePrefab,  new Vector3(i, 0, j), Quaternion.identity);
+                GameObject tile = Instantiate(tilePrefab,  gameObject.transform.position + new Vector3(i, 0, j), Quaternion.identity);
                 tilePrefab.GetComponent<Renderer>().sharedMaterial.color = new Color(0.2f, 0.2f, 0.2f, 1);
                 piecesSpawned++;
                 tile.transform.SetParent(boardParent.transform);
                 if (piecesSpawned % 2 == 1 && j < 3)
                 {
-                    GameObject go = Instantiate(redPrefab, new Vector3(i, 0.5f, j), Quaternion.identity);
+                    GameObject go = Instantiate(redPrefab, gameObject.transform.position + new Vector3(i, 0.5f, j), Quaternion.identity);
                     pieces[i, j] = go.GetComponent<Piece>();
                     pieces[i, j].colour = "red";
                     go.transform.SetParent(boardParent.transform);
                 }
                 if (piecesSpawned % 2 == 1 && j > 4)
                 {
-                    GameObject go = Instantiate(blackPrefab, new Vector3(i, 0.5f, j), Quaternion.identity);
+                    GameObject go = Instantiate(blackPrefab, gameObject.transform.position + new Vector3(i, 0.5f, j), Quaternion.identity);
                     pieces[i, j] = go.GetComponent<Piece>();
                     pieces[i, j].colour = "black";
                     go.transform.SetParent(boardParent.transform);
