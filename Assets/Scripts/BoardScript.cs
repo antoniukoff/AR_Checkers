@@ -143,19 +143,25 @@ public class BoardScript : MonoBehaviour
     public Vector2[] ViableMoves(int coordx, int coordy)
     {
         Vector2[] moves = new Vector2[2];
+        Vector3 piecePos = pieces[coordx, coordy].gameObject.transform.position;
+        Vector3 tilePos = Tile.gameObject.transform.position;
+
+        float deltaX = piecePos.x - tilePos.x;
+        float deltaZ = piecePos.z - tilePos.z;
+
         if (pieces[coordx, coordy].colour == "red")
         {
-            if (pieces[coordx + 1, coordy + 1] == null) moves[0] = new Vector2(1, 1);
-            if (pieces[coordx + 2, coordy + 2] == null && pieces[coordx + 1, coordy + 1] != null) moves[0] = new Vector2(2, 2);
-            if (pieces[coordx - 1, coordy + 1] == null) moves[1] = new Vector2(-1, 1);
-            if (pieces[coordx - 2, coordy + 2] == null && pieces[coordx - 1, coordy + 1] != null) moves[1] = new Vector2(-2, 2);
+            if (pieces[coordx + 1, coordy + 1] == null) moves[0] = new Vector2(1 + deltaX, 1 + deltaZ);
+            if (pieces[coordx + 2, coordy + 2] == null && pieces[coordx + 1, coordy + 1] != null) moves[0] = new Vector2(2 + deltaX, 2 + deltaZ);
+            if (pieces[coordx - 1, coordy + 1] == null) moves[1] = new Vector2(-1 + deltaX, 1 + deltaZ);
+            if (pieces[coordx - 2, coordy + 2] == null && pieces[coordx - 1, coordy + 1] != null) moves[1] = new Vector2(-2 + deltaX, 2 + deltaZ);
         }
         if (pieces[coordx, coordy].colour == "black")
         {
-            if (pieces[coordx + 1, coordy - 1] == null) moves[0] = new Vector2(1, -1);
-            if (pieces[coordx + 2, coordy - 2] == null && pieces[coordx + 1, coordy - 1] != null) moves[0] = new Vector2(2, -2);
-            if (pieces[coordx - 1, coordy - 1] == null) moves[1] = new Vector2(-1, -1);
-            if (pieces[coordx - 2, coordy - 2] == null && pieces[coordx - 1, coordy - 1] != null) moves[1] = new Vector2(-2, -2);
+            if (pieces[coordx + 1, coordy - 1] == null) moves[0] = new Vector2(1 + deltaX, -1 + deltaZ);
+            if (pieces[coordx + 2, coordy - 2] == null && pieces[coordx + 1, coordy - 1] != null) moves[0] = new Vector2(2 + deltaX, -2 + deltaZ);
+            if (pieces[coordx - 1, coordy - 1] == null) moves[1] = new Vector2(-1 + deltaX, -1 + deltaZ);
+            if (pieces[coordx - 2, coordy - 2] == null && pieces[coordx - 1, coordy - 1] != null) moves[1] = new Vector2(-2 + deltaX, -2 + deltaZ);
         }
         return moves;
     }
