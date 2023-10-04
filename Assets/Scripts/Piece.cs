@@ -39,7 +39,7 @@ public class Piece : MonoBehaviour
         
         GetComponent<Animator>().SetTrigger("Tapped");
         GetComponent<Animator>().SetTrigger("Return");
-        Debug.Log("pressed mouse");
+        //Debug.Log("pressed mouse");
         activePiece = true;
     }
 
@@ -49,10 +49,6 @@ public class Piece : MonoBehaviour
         GetComponent<Animator>().SetTrigger("Tapped");
         GetComponent<Animator>().SetTrigger("Return");
         activePiece =true;
-
-
-
-
 
     }
 

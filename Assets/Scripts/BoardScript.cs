@@ -18,6 +18,7 @@ public class BoardScript : MonoBehaviour
     Vector2[] moves;
     public Animator anime;
     Vector2 touchPosition;
+    GameObject boardParent;
     public bool redTurn;
     int[,] boardcoords = new int[rows, columns];
 
@@ -30,7 +31,8 @@ public class BoardScript : MonoBehaviour
     private void Start()
     {
         redTurn = true;
-       // SpawnTheBoard();
+        // boardParent = SpawnTheBoard();
+        // boardParent.transform.position = gameObject.transform.position;
         activePiece.x = -1;
         activePiece.y = -1;
         moves = new Vector2[2];
@@ -50,11 +52,12 @@ public class BoardScript : MonoBehaviour
 
     private void Update()
     {
-        if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
+        if (Input.GetMouseButtonUp(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit Hit))
             {
+                //Debug.Log(gameObject.name + (int)(gameObject.transform.position.x) + ", " + (int)(gameObject.transform.position.z  ));
                 if (activePiece.x == -1 && activePiece.y == -1)
                 {
                     if (Hit.transform.gameObject == redPrefab || Hit.transform.gameObject == blackPrefab)
@@ -66,15 +69,22 @@ public class BoardScript : MonoBehaviour
                 else if (Hit.transform.gameObject.tag == "Tile")
                 {
                     Vector2 temp;
-                    temp.x = (int)Hit.transform.gameObject.GetComponent<Transform>().position.x;
-                    temp.y = (int)Hit.transform.gameObject.GetComponent<Transform>().position.z;
-                    if (temp - activePiece == moves[0])
+                    temp.x = Mathf.RoundToInt(Hit.transform.position.x );
+                    temp.y = Mathf.RoundToInt(Hit.transform.position.z );
+
+                    Debug.Log("Temp: " + temp);
+                    if ((temp - activePiece) == moves[0])
                     {
+                       // Debug.Log("Temp: " + (temp - activePiece));
+                        //Debug.Log("Moves: " + moves[0] + ", " + moves[1]);
                         Piecemove((int)activePiece.x, (int)activePiece.y, (int)moves[0].x, (int)moves[0].y);
                         if (Mathf.Abs(moves[0].x) == 2) StartCoroutine(DestroyJumpedPiece(0));
                     }
                     if (temp - activePiece == moves[1])
                     {
+                        //Debug.Log("Moves: " + moves[0] + ", " + moves[1]);
+                        //Debug.Log("Temp: " + (temp - activePiece));
+
                         Piecemove((int)activePiece.x, (int)activePiece.y, (int)moves[1].x, (int)moves[1].y);
                         if (Mathf.Abs(moves[1].x) == 2) StartCoroutine(DestroyJumpedPiece(1));
                     }
@@ -104,6 +114,7 @@ public class BoardScript : MonoBehaviour
                 {
                     activePiece.x = i;
                     activePiece.y = j;
+                    Debug.Log("Active Piece: " + activePiece);
                     moves = ViableMoves(i, j);
                 }
             }
@@ -143,11 +154,6 @@ public class BoardScript : MonoBehaviour
     public Vector2[] ViableMoves(int coordx, int coordy)
     {
         Vector2[] moves = new Vector2[2];
-        Vector3 piecePos = pieces[coordx, coordy].gameObject.transform.position;
-        Vector3 tilePos = Tile.gameObject.transform.position;
-
-        float deltaX = piecePos.x - tilePos.x;
-        float deltaZ = piecePos.z - tilePos.z;
 
         if (pieces[coordx, coordy].colour == "red")
         {
@@ -168,26 +174,26 @@ public class BoardScript : MonoBehaviour
 
     public GameObject SpawnTheBoard()
     {
-        GameObject boardParent = new GameObject("Board");
+         boardParent = new GameObject("BoardMesh");
         for (int i = 0; i < rows; i++)
         {
             piecesSpawned++;
             for (int j = 0; j < columns; j++)
             {
-                GameObject tile = Instantiate(tilePrefab,  gameObject.transform.position + new Vector3(i, 0, j), Quaternion.identity);
+                GameObject tile = Instantiate(tilePrefab, new Vector3(i, 0, j), Quaternion.identity);
                 tilePrefab.GetComponent<Renderer>().sharedMaterial.color = new Color(0.2f, 0.2f, 0.2f, 1);
                 piecesSpawned++;
                 tile.transform.SetParent(boardParent.transform);
                 if (piecesSpawned % 2 == 1 && j < 3)
                 {
-                    GameObject go = Instantiate(redPrefab, gameObject.transform.position + new Vector3(i, 0.5f, j), Quaternion.identity);
+                    GameObject go = Instantiate(redPrefab, new Vector3(i, 0.5f, j), Quaternion.identity);
                     pieces[i, j] = go.GetComponent<Piece>();
                     pieces[i, j].colour = "red";
                     go.transform.SetParent(boardParent.transform);
                 }
                 if (piecesSpawned % 2 == 1 && j > 4)
                 {
-                    GameObject go = Instantiate(blackPrefab, gameObject.transform.position + new Vector3(i, 0.5f, j), Quaternion.identity);
+                    GameObject go = Instantiate(blackPrefab, new Vector3(i, 0.5f, j), Quaternion.identity);
                     pieces[i, j] = go.GetComponent<Piece>();
                     pieces[i, j].colour = "black";
                     go.transform.SetParent(boardParent.transform);

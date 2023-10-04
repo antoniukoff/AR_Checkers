@@ -10,8 +10,11 @@ public class Test : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-            //spawnedObject = Instantiate(prefabToSpawn, new Vector3(5.0f,0.0f,0.0f), Quaternion.identity);
-        
+            spawnedObject = Instantiate(prefabToSpawn, new Vector3(5.0f,-3.0f,3.0f), Quaternion.identity);
+            Debug.Log("spawnedObject.transform.position: " + spawnedObject.transform.position);
+            boardMesh = spawnedObject.GetComponent<BoardScript>().SpawnTheBoard();
+            boardMesh.transform.position = spawnedObject.transform.position;    
+            boardMesh.transform.SetParent(spawnedObject.transform);
     }
 
     // Update is called once per frame
@@ -21,11 +24,23 @@ public class Test : MonoBehaviour
             //spawnedObject.transform.position = new Vector3(5f,0.0f,0.0f);
             //spawnedObject = spawnedObject.GetComponent<BoardScript>().SpawnTheBoard();
         }  
-        if(Input.GetKeyDown("a") && spawnedObject != null)
+        if(Input.GetKey("a") && spawnedObject != null)
         spawnedObject.transform.position -= new Vector3(0.1f,0.0f,0.0f);
 
-         if(Input.GetKeyDown("d") && spawnedObject != null)
+         if(Input.GetKey("d") && spawnedObject != null)
         spawnedObject.transform.position -= new Vector3(-0.1f,0.0f,0.0f);
+            
+             if(Input.GetKey("w") && spawnedObject != null)
+        spawnedObject.transform.position -= new Vector3(0.0f,0.0f,0.1f);
+
+            if(Input.GetKey("s") && spawnedObject != null)
+        spawnedObject.transform.position -= new Vector3(0.0f,0.0f,-0.1f);
+        if(Input.GetKey("q") && spawnedObject != null)
+
+        spawnedObject.transform.position -= new Vector3(0.0f,0.1f,0.0f);
+        if(Input.GetKey("e") && spawnedObject != null)
+        
+        spawnedObject.transform.position -= new Vector3(0.0f,-0.1f,0.0f);
 
         
 
