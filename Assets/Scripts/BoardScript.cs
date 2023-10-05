@@ -31,8 +31,6 @@ public class BoardScript : MonoBehaviour
     private void Start()
     {
         redTurn = true;
-        // boardParent = SpawnTheBoard();
-        // boardParent.transform.position = gameObject.transform.position;
         activePiece.x = -1;
         activePiece.y = -1;
         moves = new Vector2[2];
@@ -52,7 +50,7 @@ public class BoardScript : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit Hit))
@@ -68,9 +66,11 @@ public class BoardScript : MonoBehaviour
                 }
                 else if (Hit.transform.gameObject.tag == "Tile")
                 {
+                    Vector3 relativePosition = gameObject.transform.InverseTransformPoint(Hit.transform.position);
                     Vector2 temp;
-                    temp.x = Mathf.RoundToInt(Hit.transform.position.x );
-                    temp.y = Mathf.RoundToInt(Hit.transform.position.z );
+                    temp.x = Mathf.RoundToInt(relativePosition.x);
+                    temp.y = Mathf.RoundToInt(relativePosition.z);
+
 
                     Debug.Log("Temp: " + temp);
                     if ((temp - activePiece) == moves[0])
@@ -138,18 +138,20 @@ public class BoardScript : MonoBehaviour
         }
     }
 
-    public void Piecemove(int coordx, int coordy, int x, int z)
+   public void Piecemove(int coordx, int coordy, int x, int z)
+{
+    if (pieces[coordx, coordy] != null && pieces[coordx + x, coordy + z] == null)
     {
-        if (pieces[coordx,coordy] != null && pieces[coordx + x, coordy + z] == null)
-        {
-            Piece p = pieces[coordx, coordy];
-            Vector3 cur = p.transform.position;
-            Vector3 pos = new Vector3(x, 0, z);
-            p.transform.position = cur + pos;
-            pieces[coordx, coordy] = null;
-            pieces[coordx + x, coordy + z] = p;
-        }
+        Piece p = pieces[coordx, coordy];
+        Vector3 moveVector = new Vector3(x, 0, z);  
+        Vector3 scaledMoveVector = Vector3.Scale(moveVector, boardParent.transform.localScale);  
+        p.transform.localPosition += scaledMoveVector;  
+        pieces[coordx, coordy] = null;
+        pieces[coordx + x, coordy + z] = p;
     }
+}
+
+
 
     public Vector2[] ViableMoves(int coordx, int coordy)
     {

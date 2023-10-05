@@ -380,8 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1760703bbd54c04488a8d10600262ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlanePrefab: {fileID: 2103832754822727370, guid: 5fdef0d530d1fbd45aea4b7fb25218d8,
-    type: 3}
+  m_PlanePrefab: {fileID: 0}
   m_DetectionMode: 1
 --- !u!114 &781742399
 MonoBehaviour:
@@ -573,7 +572,7 @@ PrefabInstance:
     - target: {fileID: 815127840989713334, guid: cc27918923f1c004c916d08600b9db61,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 815127840989713335, guid: cc27918923f1c004c916d08600b9db61,
         type: 3}

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.Controls;
 
 public class Test : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class Test : MonoBehaviour
             Debug.Log("spawnedObject.transform.position: " + spawnedObject.transform.position);
             boardMesh = spawnedObject.GetComponent<BoardScript>().SpawnTheBoard();
             boardMesh.transform.position = spawnedObject.transform.position;    
+            boardMesh.transform.rotation = spawnedObject.transform.rotation;    
             boardMesh.transform.SetParent(spawnedObject.transform);
     }
 
@@ -35,13 +37,31 @@ public class Test : MonoBehaviour
 
             if(Input.GetKey("s") && spawnedObject != null)
         spawnedObject.transform.position -= new Vector3(0.0f,0.0f,-0.1f);
-        if(Input.GetKey("q") && spawnedObject != null)
-
-        spawnedObject.transform.position -= new Vector3(0.0f,0.1f,0.0f);
-        if(Input.GetKey("e") && spawnedObject != null)
         
+        if(Input.GetKey("q") && spawnedObject != null)
+        spawnedObject.transform.position -= new Vector3(0.0f,0.1f,0.0f);
+
+        if(Input.GetKey("e") && spawnedObject != null)
         spawnedObject.transform.position -= new Vector3(0.0f,-0.1f,0.0f);
 
+        if(Input.GetKey("left") && spawnedObject != null)
+        spawnedObject.transform.Rotate(0.0f,0.1f,0.0f);
+        
+        if(Input.GetKey("right") && spawnedObject != null)
+        spawnedObject.transform.Rotate(0.0f,-0.1f,0.0f);
+
+        if(Input.GetKey("up") && spawnedObject != null)
+        spawnedObject.transform.Rotate(0.1f,0.0f,0.0f);
+
+        if(Input.GetKey("down") && spawnedObject != null)
+        spawnedObject.transform.Rotate(-0.1f,0.0f,0.0f);
+
+        if(Input.GetKey("z") && spawnedObject != null)
+        spawnedObject.transform.localScale += new Vector3(0.1f,0.1f,0.1f);
+
+        if(spawnedObject.transform.localScale.x > 0.1f)
+        {if(Input.GetKey("x") && spawnedObject != null)
+        spawnedObject.transform.localScale -= new Vector3(0.1f,0.1f,0.1f);}
         
 
     }

@@ -81,14 +81,9 @@ public class TapToPlaceObject : MonoBehaviour
                 spawnedObject = Instantiate(prefabToSpawn, hitPose.position, hitPose.rotation);
                 Debug.Log("spawnedObject.transform.position: " + spawnedObject.transform.position);
                 boardMesh = spawnedObject.GetComponent<BoardScript>().SpawnTheBoard();
-                boardMesh.transform.position = spawnedObject.transform.position;   
-                boardMesh.transform.rotation = spawnedObject.transform.rotation;
+                boardMesh.transform.position = spawnedObject.transform.position;    
+                boardMesh.transform.rotation = spawnedObject.transform.rotation;    
                 boardMesh.transform.SetParent(spawnedObject.transform);
-                // spawnedObject = Instantiate(prefabToSpawn, new Vector3(), Quaternion.identity);
-                // spawnedObject = spawnedObject.GetComponent<BoardScript>().SpawnTheBoard();
-                // spawnedObject.transform.position = hitPose.position;
-                // spawnedObject.transform.rotation = hitPose.rotation;
-            
             }
             else if(moveBoard == true)
                 spawnedObject.transform.position = hitPose.position;
