@@ -148,25 +148,33 @@ public class BoardScript : MonoBehaviour
 
 
     public Vector2[] ViableMoves(int coordx, int coordy)
+{
+    Vector2[] moves = new Vector2[2];
+    if (pieces[coordx, coordy].colour == "red")
     {
-        Vector2[] moves = new Vector2[2];
-
-        if (pieces[coordx, coordy].colour == "red")
-        {
-           if (pieces[coordx + 1, coordy + 1] == null) moves[0] = new Vector2(1, 1);
-            if (pieces[coordx + 2, coordy + 2] == null && pieces[coordx + 1, coordy + 1] != null) moves[0] = new Vector2(2, 2);
-            if (pieces[coordx - 1, coordy + 1] == null) moves[1] = new Vector2(-1, 1);
-            if (pieces[coordx - 2, coordy + 2] == null && pieces[coordx - 1, coordy + 1] != null) moves[1] = new Vector2(-2, 2);
-        }
-        if (pieces[coordx, coordy].colour == "black")
-        {
-            if (pieces[coordx + 1, coordy - 1] == null) moves[0] = new Vector2(1, -1);
-            if (pieces[coordx + 2, coordy - 2] == null && pieces[coordx + 1, coordy - 1] != null) moves[0] = new Vector2(2, -2);
-            if (pieces[coordx - 1, coordy - 1] == null) moves[1] = new Vector2(-1, -1);
-            if (pieces[coordx - 2, coordy - 2] == null && pieces[coordx - 1, coordy - 1] != null) moves[1] = new Vector2(-2, -2);
-        }
-        return moves;
+        if (coordx + 1 < rows && coordy + 1 < columns && pieces[coordx + 1, coordy + 1] == null) 
+        moves[0] = new Vector2(1, 1);
+        if (coordx + 2 < rows && coordy + 2 < columns && pieces[coordx + 2, coordy + 2] == null && pieces[coordx + 1, coordy + 1] != null)
+        moves[0] = new Vector2(2, 2);
+        if (coordx - 1 >= 0 && coordy + 1 < columns && pieces[coordx - 1, coordy + 1] == null) 
+        moves[1] = new Vector2(-1, 1);
+        if (coordx - 2 >= 0 && coordy + 2 < columns && pieces[coordx - 2, coordy + 2] == null && pieces[coordx - 1, coordy + 1] != null) 
+        moves[1] = new Vector2(-2, 2);
     }
+    if (pieces[coordx, coordy].colour == "black")
+    {
+        if (coordx + 1 < rows && coordy - 1 >= 0 && pieces[coordx + 1, coordy - 1] == null)
+        moves[0] = new Vector2(1, -1);
+        if (coordx + 2 < rows && coordy - 2 >= 0 && pieces[coordx + 2, coordy - 2] == null && pieces[coordx + 1, coordy - 1] != null) 
+        moves[0] = new Vector2(2, -2);
+        if (coordx - 1 >= 0 && coordy - 1 >= 0 && pieces[coordx - 1, coordy - 1] == null) 
+        moves[1] = new Vector2(-1, -1);
+        if (coordx - 2 >= 0 && coordy - 2 >= 0 && pieces[coordx - 2, coordy - 2] == null && pieces[coordx - 1, coordy - 1] != null) 
+        moves[1] = new Vector2(-2, -2);
+    }
+    return moves;
+}
+
 
     public GameObject SpawnTheBoard()
     {
