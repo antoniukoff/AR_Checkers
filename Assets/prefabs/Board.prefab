@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815127840989713334}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &815127840989713335
 MonoBehaviour:
@@ -53,8 +53,11 @@ MonoBehaviour:
     type: 3}
   blackPrefab: {fileID: 5121149358427384222, guid: a57fde6cd31451440a8ab9d2adf42907,
     type: 3}
+  tilePrefab: {fileID: 8744061349713393725, guid: de3f5ba53657b0e4dbe06417e7a8605d,
+    type: 3}
   activePiece: {x: 0, y: 0}
   go1: {fileID: 0}
+  anime: {fileID: 0}
   redTurn: 0
 --- !u!114 &815127840989713331
 MonoBehaviour:
@@ -63,12 +66,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815127840989713334}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 520bb47c46cf8624fafb307b7d1b862a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Camera: {fileID: 0}
+  m_OriginBaseGameObject: {fileID: 815127840989713334}
+  m_CameraFloorOffsetObject: {fileID: 0}
+  m_RequestedTrackingOriginMode: 0
+  m_CameraYOffset: 1.1176
 --- !u!114 &815127840989713330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,7 +83,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815127840989713334}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa17d122634046b4a8e23048891fafc5, type: 3}
   m_Name: 
@@ -89,7 +96,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815127840989713334}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1760703bbd54c04488a8d10600262ab, type: 3}
   m_Name: 
