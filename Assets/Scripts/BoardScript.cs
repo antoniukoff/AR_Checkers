@@ -55,7 +55,6 @@ public class BoardScript : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit Hit))
             {
-                //Debug.Log(gameObject.name + (int)(gameObject.transform.position.x) + ", " + (int)(gameObject.transform.position.z  ));
                 if (activePiece.x == -1 && activePiece.y == -1)
                 {
                     if (Hit.transform.gameObject == redPrefab || Hit.transform.gameObject == blackPrefab)
@@ -75,16 +74,11 @@ public class BoardScript : MonoBehaviour
                     Debug.Log("Temp: " + temp);
                     if ((temp - activePiece) == moves[0])
                     {
-                       // Debug.Log("Temp: " + (temp - activePiece));
-                        //Debug.Log("Moves: " + moves[0] + ", " + moves[1]);
                         Piecemove((int)activePiece.x, (int)activePiece.y, (int)moves[0].x, (int)moves[0].y);
                         if (Mathf.Abs(moves[0].x) == 2) StartCoroutine(DestroyJumpedPiece(0));
                     }
                     if (temp - activePiece == moves[1])
                     {
-                        //Debug.Log("Moves: " + moves[0] + ", " + moves[1]);
-                        //Debug.Log("Temp: " + (temp - activePiece));
-
                         Piecemove((int)activePiece.x, (int)activePiece.y, (int)moves[1].x, (int)moves[1].y);
                         if (Mathf.Abs(moves[1].x) == 2) StartCoroutine(DestroyJumpedPiece(1));
                     }
