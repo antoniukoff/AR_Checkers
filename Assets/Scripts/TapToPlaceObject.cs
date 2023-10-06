@@ -67,23 +67,7 @@ public class TapToPlaceObject : MonoBehaviour
         // Three-finger movement
         if (spawnedObject && Input.touchCount == 3)
         {
-            Touch touch1 = Input.GetTouch(0);
-            Touch touch2 = Input.GetTouch(1);
-            Touch touch3 = Input.GetTouch(2);
-            
-            Vector2 currentAvgPosition = (touch1.position + touch2.position + touch3.position) / 3;
-
-            if (touch1.phase == TouchPhase.Began || touch2.phase == TouchPhase.Began || touch3.phase == TouchPhase.Began)
-            {
-                initialTouchAvgPosition = currentAvgPosition;
-                initialObjectPosition = spawnedObject.transform.position;
-            }
-            else if (touch1.phase == TouchPhase.Moved || touch2.phase == TouchPhase.Moved || touch3.phase == TouchPhase.Moved)
-            {
-                Vector2 deltaPosition = currentAvgPosition - initialTouchAvgPosition;
-                Vector3 newPosition = initialObjectPosition + new Vector3(deltaPosition.x, 0, deltaPosition.y) * 0.01f;
-                spawnedObject.transform.position = newPosition;
-            }
+            moveBoard = !moveBoard;
             return;
         }
 

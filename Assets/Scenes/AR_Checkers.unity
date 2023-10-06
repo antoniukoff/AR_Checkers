@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520bb47c46cf8624fafb307b7d1b862a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 1739070841}
+  m_Camera: {fileID: 0}
   m_OriginBaseGameObject: {fileID: 781742394}
   m_CameraFloorOffsetObject: {fileID: 0}
   m_RequestedTrackingOriginMode: 0
@@ -351,7 +351,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1739070846}
+  - {fileID: 1616003140}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 19.542, y: 0, z: 0}
 --- !u!114 &781742397
@@ -368,6 +368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 815127840989713334, guid: cc27918923f1c004c916d08600b9db61,
     type: 3}
+  scaleSpeed: 0.01
 --- !u!114 &781742398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -864,9 +865,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1616003140}
   - component: {fileID: 1616003139}
-  - component: {fileID: 1616003138}
   - component: {fileID: 1616003137}
   - component: {fileID: 1616003136}
+  - component: {fileID: 1739070844}
   m_Layer: 0
   m_Name: XR Origin
   m_TagString: Untagged
@@ -886,7 +887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3166ca04915045d1b87254b2aed1c77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 223974226}
+  prefabToSpawn: {fileID: 0}
   scaleSpeed: 0.01
 --- !u!114 &1616003137
 MonoBehaviour:
@@ -900,25 +901,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1760703bbd54c04488a8d10600262ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FocusMode: -1
-  m_LightEstimationMode: -1
-  m_AutoFocus: 1
-  m_LightEstimation: 0
-  m_FacingDirection: 1
-  m_RenderMode: 0
---- !u!114 &1739070844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1616003135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa17d122634046b4a8e23048891fafc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RaycastPrefab: {fileID: 0}
+  m_PlanePrefab: {fileID: 0}
+  m_DetectionMode: -1
 --- !u!114 &1616003139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -942,15 +926,29 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1739070840}
+  m_GameObject: {fileID: 1616003135}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 929838258}
   m_Father: {fileID: 781742396}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1739070844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616003135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa17d122634046b4a8e23048891fafc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RaycastPrefab: {fileID: 0}
 --- !u!1 &1914669544
 GameObject:
   m_ObjectHideFlags: 0

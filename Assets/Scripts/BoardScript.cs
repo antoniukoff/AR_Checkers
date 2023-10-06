@@ -50,9 +50,9 @@ public class BoardScript : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
             if (Physics.Raycast(ray, out RaycastHit Hit))
             {
                 if (activePiece.x == -1 && activePiece.y == -1)
@@ -181,6 +181,7 @@ public class BoardScript : MonoBehaviour
          boardParent = new GameObject("BoardMesh");
         for (int i = 0; i < rows; i++)
         {
+            piecesSpawned++;
             for (int j = 0; j < columns; j++)
             {
                 GameObject tile = Instantiate(tilePrefab, new Vector3(i, 0, j), Quaternion.identity);
